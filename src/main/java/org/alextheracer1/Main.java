@@ -32,6 +32,8 @@ import static org.alextheracer1.internal.components.Servo.buildPwmConfig;
 
 import com.pi4j.Pi4J;
 import com.pi4j.extension.Plugin;
+import com.pi4j.io.gpio.digital.DigitalOutput;
+import com.pi4j.io.gpio.digital.DigitalState;
 import com.pi4j.io.pwm.Pwm;
 import com.pi4j.util.Console;
 import java.util.Scanner;
@@ -47,7 +49,7 @@ public class Main {
 
     private static Pwm pwm;
 
-    private static final int PIN_SERVO = 18;
+    private static final int PIN_SERVO = 35;
 
 
     private static int pressCount = 0;
@@ -118,27 +120,16 @@ public class Main {
                 .initial(DigitalState.LOW)
                 .provider("pigpio-digital-output");
         var servo = pi4j.create(buttonConfig);
-*/
+
+        */
+
         pwm = pi4j.create(buildPwmConfig(pi4j, PIN_SERVO));
 
         var plugins = ServiceLoader.load(Plugin.class);
 
 
-
-        Scanner scanner = new Scanner(System.in);
-
         int g = 0;
-/*
-        while (g < 10) {
-            for (int i = 0; i <= 120; i++) {
-                pwm.on();
-                pwm.dutyCycle(i);
-                sleep(20);
-                System.out.println(i);
-            }
-            g++;
-        }
-*/
+
         while (g < 20) {
             for (int i = 43; i <= 142; i++) {
                 pwm.on(10, i);
@@ -152,19 +143,11 @@ public class Main {
             sleep(500);
         }
 
-        /*
         pwm.off();
-        while (scanner.hasNext()) {
-            int temp;
-            temp = scanner.nextInt();
-            pwm.on(10, temp);
-        }
-*/
-        pwm.off();
-        while (true) {
+
             int random = (int) ((Math.random() * (143 - 43)) + 43);
             pwm.on(10, random);
-        }
+
 
 
         // ------------------------------------------------------------
@@ -179,6 +162,6 @@ public class Main {
         // is returned to the system.
 
         // Shutdown Pi4J
-        //pi4j.shutdown();
+        pi4j.shutdown();
     }
 }

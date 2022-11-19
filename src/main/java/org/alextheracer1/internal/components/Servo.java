@@ -4,10 +4,10 @@ import com.pi4j.context.Context;
 import com.pi4j.io.pwm.Pwm;
 import com.pi4j.io.pwm.PwmConfig;
 import com.pi4j.io.pwm.PwmType;
-import java.awt.Component;
 
 
-public class Servo extends Component {
+
+public class Servo {
   /**
    * Default PWM frequency of the servo, based on values for SG92R
    */
@@ -39,19 +39,19 @@ public class Servo extends Component {
   /**
    * Minimum angle of the servo motor used for this instance, should match previously tested real world values
    */
-  private final float minAngle;
+ // private final float minAngle;
   /**
    * Maximum angle of the servo motor used for this instance, should match previously tested real world values
    */
-  private final float maxAngle;
+ // private final float maxAngle;
   /**
    * Minimum duty cycle of the servo motor for this instance, should match previously tested real world values
    */
-  private final float minDutyCycle;
+  // private final float minDutyCycle;
   /**
    * Maximum duty cycle of the servo motor for this instance, should match previously tested real world values
    */
-  private final float maxDutyCycle;
+  // private final float maxDutyCycle;
 
   /**
    * Minimum value for user-defined range, defaults to 0
@@ -94,6 +94,3 @@ public class Servo extends Component {
     }
   }
 
-
-
-  }

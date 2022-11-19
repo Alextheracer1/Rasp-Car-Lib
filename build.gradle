@@ -8,6 +8,57 @@ plugins {
 group 'org.alextheracer1'
 version '1.0-SNAPSHOT'
 
+/*
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+plugins.withType(JavaPlugin).configureEach {
+    java {
+        modularity.inferModulePath = true
+    }
+}
+
+// Copy the Java modules, run script and JAR in the distribution directory
+tasks.register("copyDistribution", Copy) {
+    from configurations.default
+    from tasks.named('jar')
+    from layout.projectDirectory.file('assets/run.sh')
+    into layout.buildDirectory.dir('distribution')
+}
+tasks.named("build") {
+    dependsOn("copyDistribution")
+}
+*/
+
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.alextheracer1.Main',
+        )
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest.from jar.manifest
+    classifier = 'all'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+    with jar
+}
+
+artifacts {
+    archives fatJar
+}
+
+
 repositories {
     mavenCentral()
 }
