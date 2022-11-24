@@ -49,10 +49,8 @@ public class Main {
 
     private static Pwm pwm;
 
-    private static final int PIN_SERVO = 35;
+    private static final int PIN_SERVO = 19;
 
-
-    private static int pressCount = 0;
 
     /**
      * This application blinks a led and counts the number the button is pressed. The blink speed increases with each
