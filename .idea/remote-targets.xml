@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="pi@172.20.10.5:22" type="ssh/sftp" uuid="862f650f-984e-446d-b664-9fe9afbda8f7">
+        <config>
+          <option name="projectRootOnTarget" value="$PROJECT_DIR$/../../../pi/Rasp-Car-Lib" />
+          <option name="serverName" value="pi@car-pi.local:22 password" />
+          <option name="useRsync" value="true" />
+        </config>
+        <ContributedStateBase type="GradleRuntime">
+          <config>
+            <option name="homePath" value="/usr/share/gradle" />
+          </config>
+        </ContributedStateBase>
+        <ContributedStateBase type="JavaLanguageRuntime">
+          <config>
+            <option name="homePath" value="/usr/lib/jvm/bellsoft-java17-full-aarch64" />
+            <option name="javaVersionString" value="17" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>

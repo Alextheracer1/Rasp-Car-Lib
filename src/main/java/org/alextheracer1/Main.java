@@ -32,11 +32,8 @@ import static org.alextheracer1.internal.components.Servo.buildPwmConfig;
 
 import com.pi4j.Pi4J;
 import com.pi4j.extension.Plugin;
-import com.pi4j.io.gpio.digital.DigitalOutput;
-import com.pi4j.io.gpio.digital.DigitalState;
 import com.pi4j.io.pwm.Pwm;
 import com.pi4j.util.Console;
-import java.util.Scanner;
 import java.util.ServiceLoader;
 
 /**

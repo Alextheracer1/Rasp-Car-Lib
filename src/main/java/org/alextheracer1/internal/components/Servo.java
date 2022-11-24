@@ -63,23 +63,17 @@ public class Servo {
   private float maxRange = 1;
 
 
-    /**
-     * Creates a new buzzer component with a custom BCM pin.
-     *
-     * @param pi4j    Pi4J context
-     * @param address Custom BCM pin address
-     */
     public Servo(Context pi4j, int address) {
       this.pwm = pi4j.create(buildPwmConfig(pi4j, address));
     }
 
 
     /**
-     * Builds a new PWM configuration for the buzzer
+     * > Build a PWM configuration object for the given address
      *
-     * @param pi4j    Pi4J context
-     * @param address BCM pin address
-     * @return PWM configuration
+     * @param pi4j The context of the Pi4J library.
+     * @param address The GPIO pin number to use for the servo.
+     * @return A {@link PwmConfig} object.
      */
     public static PwmConfig buildPwmConfig(Context pi4j, int address) {
       return Pwm.newConfigBuilder(pi4j)
