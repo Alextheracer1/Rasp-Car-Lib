@@ -38,7 +38,7 @@ public void testServo() throws InterruptedException {
 
   int g = 0;
 
-  while (g < 20) {
+  while (g < 3) {
     for (int i = 43; i <= 142; i++) {
       pwm.on(10, i);
       sleep(5);
