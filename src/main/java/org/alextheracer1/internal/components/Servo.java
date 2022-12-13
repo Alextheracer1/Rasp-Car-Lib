@@ -1,6 +1,8 @@
 package org.alextheracer1.internal.components;
 
 import com.pi4j.context.Context;
+import com.pi4j.io.gpio.digital.DigitalInput;
+import com.pi4j.io.gpio.digital.DigitalInputConfig;
 import com.pi4j.io.pwm.Pwm;
 import com.pi4j.io.pwm.PwmConfig;
 import com.pi4j.io.pwm.PwmType;
@@ -31,10 +33,6 @@ public class Servo {
    */
   protected final static float DEFAULT_MAX_DUTY_CYCLE = 12;
 
-  /**
-   * Pi4J PWM instance for this servo
-   */
-  private final Pwm pwm;
 
   /**
    * Minimum angle of the servo motor used for this instance, should match previously tested real world values
@@ -63,10 +61,15 @@ public class Servo {
   private float maxRange = 1;
 
 
-    public Servo(Context pi4j, int address) {
+
+
+  private final static int inputPin = 0;
+  private final Pwm pwm;
+
+
+  public Servo(Context pi4j, int address) {
       this.pwm = pi4j.create(buildPwmConfig(pi4j, address));
     }
-
 
     /**
      * > Build a PWM configuration object for the given address
@@ -78,7 +81,7 @@ public class Servo {
     public static PwmConfig buildPwmConfig(Context pi4j, int address) {
       return Pwm.newConfigBuilder(pi4j)
           .id("BCM" + address)
-          .name("Servo")
+          .name("ServoOutput")
           .address(address)
           .pwmType(PwmType.HARDWARE)
           .provider("pigpio-pwm")
