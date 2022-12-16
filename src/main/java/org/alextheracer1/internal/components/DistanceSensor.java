@@ -11,8 +11,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class DistanceSensor {
 
-  private int PIN_TRIGGER;
-  private int PIN_ECHO;
+  private final int PIN_TRIGGER;
+  private final int PIN_ECHO;
 
   public DistanceSensor(int PIN_TRIGGER, int PIN_ECHO) {
     this.PIN_TRIGGER = PIN_TRIGGER;
@@ -52,7 +52,6 @@ public class DistanceSensor {
 
     var pi4j =  Pi4J.newAutoContext();
 
-
     var output = pi4j.create(buildOutputConfig(pi4j, PIN_TRIGGER));
 
     var input = pi4j.create(buildInputConfig(pi4j, PIN_ECHO));
@@ -74,10 +73,6 @@ public class DistanceSensor {
     output.state(DigitalState.HIGH);
     Thread.sleep(0, 1);
     output.state(DigitalState.LOW);
-
-
-
-
 
 
     while (unixTimeStart.get() == -1 || unixTimeEnd.get() == -1) {
