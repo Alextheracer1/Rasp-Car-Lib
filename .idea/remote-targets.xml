@@ -5,7 +5,7 @@
       <target name="car-pi" type="ssh/sftp" uuid="862f650f-984e-446d-b664-9fe9afbda8f7">
         <config>
           <option name="projectRootOnTarget" value="$PROJECT_DIR$/../../../pi/Rasp-Car-Lib" />
-          <option name="serverName" value="root@10.10.3.52:22 password" />
+          <option name="serverName" value="root@192.168.0.174:22 password" />
           <option name="useRsync" value="true" />
         </config>
         <ContributedStateBase type="GradleRuntime">
