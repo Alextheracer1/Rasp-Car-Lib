@@ -8,6 +8,7 @@ import com.pi4j.io.gpio.digital.DigitalOutput;
 import com.pi4j.io.gpio.digital.DigitalOutputConfig;
 import com.pi4j.io.gpio.digital.DigitalState;
 import java.util.concurrent.atomic.AtomicLong;
+import org.alextheracer1.internal.utils.ConfigUtils;
 
 public class DistanceSensor {
 
@@ -19,42 +20,13 @@ public class DistanceSensor {
     this.PIN_ECHO = PIN_ECHO;
   }
 
-  public int getPIN_TRIGGER() {
-    return PIN_TRIGGER;
-  }
-
-  public int getPIN_ECHO() {
-    return PIN_ECHO;
-  }
-
-  private DigitalInputConfig buildInputConfig(Context pi4j, int address) {
-    return DigitalInput.newConfigBuilder(pi4j)
-        .id("BCM" + address)
-        .name("DistanceSensorInput")
-        .address(address)
-        .provider("pigpio-digital-input")
-        .build();
-  }
-
-  private DigitalOutputConfig buildOutputConfig(Context pi4j, int address) {
-    return DigitalOutput.newConfigBuilder(pi4j)
-        .id("BCM" + address)
-        .name("DistanceSensorOutput")
-        .address(address)
-        .initial(DigitalState.LOW)
-        .shutdown(DigitalState.LOW)
-        .provider("pigpio-digital-output")
-        .build();
-  }
-
-
   public float getDistance() throws InterruptedException {
 
     var pi4j =  Pi4J.newAutoContext();
 
-    var output = pi4j.create(buildOutputConfig(pi4j, PIN_TRIGGER));
+    var output = pi4j.create(ConfigUtils.buildOutputConfig(pi4j, "DistanceSensorOutput", PIN_TRIGGER, "pigpio-digital-output"));
 
-    var input = pi4j.create(buildInputConfig(pi4j, PIN_ECHO));
+    var input = pi4j.create(ConfigUtils.buildInputConfig(pi4j, "DistanceSensorInput", PIN_ECHO, "pigpio-digital-input"));
 
     AtomicLong unixTimeStart = new AtomicLong(-1);
     AtomicLong unixTimeEnd = new AtomicLong(-1);
