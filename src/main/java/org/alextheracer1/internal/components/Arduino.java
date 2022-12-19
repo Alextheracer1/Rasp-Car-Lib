@@ -10,25 +10,17 @@ import org.slf4j.LoggerFactory;
 
 public class Arduino {
 
-  private Context pi4j;
-
   private final DigitalOutput output;
   private final DigitalInput input;
 
   private static final Logger log = LoggerFactory.getLogger(Arduino.class);
-  // Pin used for telling the Arduino to pass the receiver input to the Servo and ESC
-  private final int PIN_BLOCK;
-
-  private final int PIN_RECEIVE;
 
   private boolean isBlocked = false;
 
 
 
   public Arduino(Context pi4j, int PIN_BLOCK, int PIN_RECEIVE) {
-    this.pi4j = pi4j;
-    this.PIN_BLOCK = PIN_BLOCK;
-    this.PIN_RECEIVE = PIN_RECEIVE;
+    // Pin used for telling the Arduino to pass the receiver input to the Servo and ESC
     output = pi4j.create(ConfigUtils.buildOutputConfig(pi4j, "BlockArduinoOutput", PIN_BLOCK, "pigpio-digital-output"));
     input = pi4j.create(ConfigUtils.buildInputConfig(pi4j, "ReceiveArduinoInput", PIN_RECEIVE, "pigpio-digital-input"));
   }

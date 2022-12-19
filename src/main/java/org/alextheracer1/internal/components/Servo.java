@@ -17,17 +17,31 @@ public class Servo {
   /**
    * Minimum value for user-defined range, defaults to 0
    */
-  private int maxLeft = 53;
+  private final int maxLeft = 53;
   /**
    * Maximum value for user-defined range, defaults to 1
    */
-  private int maxRight = 90;
+  private final int maxRight = 90;
 
-  private int middle = 66;
+  private final int middle = 66;
 
 
     public Servo(Context pi4j, int address) {
       this.pwm = pi4j.create(ConfigUtils.buildPwmConfig(pi4j, "Servo", address, PwmType.HARDWARE, "pigpio-pwm"));
+    }
+
+    public void steerServo (char direction, int time) throws InterruptedException {
+
+      if (direction == 'l') {
+        pwm.on(10, maxLeft);
+        Thread.sleep(time);
+        pwm.on(10, middle);
+      } else if (direction == 'r') {
+        pwm.on(10, maxRight);
+        Thread.sleep(time);
+        pwm.on(10, middle);
+      }
+
     }
 
   }

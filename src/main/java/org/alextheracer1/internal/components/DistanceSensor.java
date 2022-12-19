@@ -12,21 +12,20 @@ import org.alextheracer1.internal.utils.ConfigUtils;
 
 public class DistanceSensor {
 
-  private final int PIN_TRIGGER;
-  private final int PIN_ECHO;
+  private final Context pi4j;
+  private final DigitalOutput output;
+  private final DigitalInput input;
 
-  public DistanceSensor(int PIN_TRIGGER, int PIN_ECHO) {
-    this.PIN_TRIGGER = PIN_TRIGGER;
-    this.PIN_ECHO = PIN_ECHO;
+  public DistanceSensor(Context pi4j, int PIN_TRIGGER, int PIN_ECHO) {
+
+    this.pi4j = pi4j;
+
+    output = pi4j.create(ConfigUtils.buildOutputConfig(pi4j, "DistanceSensorOutput", PIN_TRIGGER, "pigpio-digital-output"));
+    input = pi4j.create(ConfigUtils.buildInputConfig(pi4j, "DistanceSensorInput", PIN_ECHO, "pigpio-digital-input"));
+
   }
 
   public float getDistance() throws InterruptedException {
-
-    var pi4j =  Pi4J.newAutoContext();
-
-    var output = pi4j.create(ConfigUtils.buildOutputConfig(pi4j, "DistanceSensorOutput", PIN_TRIGGER, "pigpio-digital-output"));
-
-    var input = pi4j.create(ConfigUtils.buildInputConfig(pi4j, "DistanceSensorInput", PIN_ECHO, "pigpio-digital-input"));
 
     AtomicLong unixTimeStart = new AtomicLong(-1);
     AtomicLong unixTimeEnd = new AtomicLong(-1);
