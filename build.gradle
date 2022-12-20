@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id "com.github.johnrengelman.shadow" version "7.0.0"
     id 'idea'
     id 'java-library'
 }
@@ -30,8 +29,6 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
 
-    // ShadowJar
-    implementation 'gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0'
 
     // Logging Framework
     implementation 'ch.qos.logback:logback-classic:1.2.9'
