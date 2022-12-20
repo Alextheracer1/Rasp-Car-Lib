@@ -31,6 +31,14 @@ public class Esc {
     }
   }
 
+  public void enableEsc() {
+    escPwm.on(10, middle);
+  }
+
+  public void deactivateEsc() {
+    escPwm.off();
+  }
+
   public void stop() throws InterruptedException {
     escPwm.on(10, middle);
     Thread.sleep(2000);

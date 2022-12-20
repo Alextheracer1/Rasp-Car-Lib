@@ -38,16 +38,20 @@ public class Arduino {
     if (enabled){
       output.state(DigitalState.HIGH);
       isBlocked = true;
-      log.info("Output enabled");
+      log.info("Arduino is being blocked");
     } else {
       output.state(DigitalState.LOW);
       isBlocked = false;
-      log.info("Output disabled");
+      log.info("Arduino is not being blocked");
     }
   }
 
   public boolean isBlocked(){
     return isBlocked;
+  }
+
+  public void setBlocked (boolean blocked) {
+    this.isBlocked = blocked;
   }
 
 }

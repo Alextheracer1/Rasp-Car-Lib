@@ -25,7 +25,7 @@ public class DistanceSensor {
 
   }
 
-  public float getDistance() throws InterruptedException {
+  public double getDistance() throws InterruptedException {
 
     AtomicLong unixTimeStart = new AtomicLong(-1);
     AtomicLong unixTimeEnd = new AtomicLong(-1);

@@ -41,8 +41,14 @@ public class Servo {
         Thread.sleep(time);
         pwm.on(10, middle);
       }
-
     }
 
+    public void enableServo() {
+      pwm.on(10, middle);
+    }
+
+    public void deactivateServo() {
+      pwm.off();
+    }
   }
 
