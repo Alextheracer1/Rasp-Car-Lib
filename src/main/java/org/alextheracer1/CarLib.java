@@ -34,7 +34,7 @@ public class CarLib {
     log.info("Servo has been initialized");
     car.getElectronicSpeedController().enableEsc();
     log.info("Esc has been initialized");
-    car.getArduino().setBlocked(false);
+    car.getArduino().setControlOutput(false);
     log.info("Arduino is not being blocked");
   }
 
@@ -109,7 +109,6 @@ public class CarLib {
     car.getSteeringServo().enableServo();
     log.info("Enabled Servo");
 
-    car.getArduino().setBlocked(true);
   }
 
   public void releaseArduino () {
@@ -122,7 +121,6 @@ public class CarLib {
     car.getElectronicSpeedController().deactivateEsc();
     log.info("Deactivated ESC");
 
-    car.getArduino().setBlocked(false);
   }
 
   public void stopCar () {
@@ -135,4 +133,7 @@ public class CarLib {
     }
   }
 
+  public void shutdown() {
+    pi4j.shutdown();
+  }
 }

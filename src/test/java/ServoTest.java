@@ -15,7 +15,7 @@ public class ServoTest {
 
   private static Pwm pwm;
 
-  private static final int PIN_SERVO = 19;
+  private static final int PIN_SERVO = 18;
 
   @Test
   public void test() {

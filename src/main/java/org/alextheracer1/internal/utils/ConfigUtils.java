@@ -27,8 +27,6 @@ public class ConfigUtils {
         .id("BCM" + address)
         .name(name)
         .address(address)
-        .initial(DigitalState.LOW)
-        .shutdown(DigitalState.LOW)
         .provider(provider)
         .build();
   }
@@ -36,12 +34,10 @@ public class ConfigUtils {
   public static PwmConfig buildPwmConfig(Context pi4j, String name, int address, PwmType pwmType, String provider) {
     return Pwm.newConfigBuilder(pi4j)
         .id("BCM" + address)
-        .name("Servo")
+        .name(name)
         .address(address)
-        .pwmType(PwmType.HARDWARE)
-        .provider("pigpio-pwm")
-        .initial(0)
-        .shutdown(0)
+        .pwmType(pwmType)
+        .provider(provider)
         .build();
   }
 
