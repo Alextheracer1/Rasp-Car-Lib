@@ -15,7 +15,7 @@ public class Arduino {
 
   private static final Logger log = LoggerFactory.getLogger(Arduino.class);
 
-  private boolean isBlocked = false;
+  private boolean isEnabled = false;
 
 
 
@@ -35,23 +35,20 @@ public class Arduino {
   }
 
   public void setControlOutput(boolean enabled){
+    isEnabled = enabled;
     if (enabled){
       output.state(DigitalState.HIGH);
-      isBlocked = true;
-      log.info("Arduino is being blocked");
+      isEnabled = true;
+      log.info("Arduino enabled");
     } else {
       output.state(DigitalState.LOW);
-      isBlocked = false;
-      log.info("Arduino is not being blocked");
+      isEnabled = false;
+      log.info("Arduino disabled");
     }
   }
 
-  public boolean isBlocked(){
-    return isBlocked;
-  }
-
-  public void setBlocked (boolean blocked) {
-    this.isBlocked = blocked;
+  public boolean isEnabled(){
+    return isEnabled;
   }
 
 }

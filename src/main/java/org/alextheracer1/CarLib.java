@@ -34,8 +34,9 @@ public class CarLib {
     log.info("Servo has been initialized");
     car.getElectronicSpeedController().enableEsc();
     log.info("Esc has been initialized");
-    car.getArduino().setBlocked(false);
-    log.info("Arduino is not being blocked");
+
+    deactivateArduino();
+    log.info("Arduino disabled");
   }
 
   public double getDistance() {
@@ -48,7 +49,7 @@ public class CarLib {
   }
 
   public void steerLeft (int time) {
-    if (car.getArduino().isBlocked()) {
+    if (!car.getArduino().isEnabled()) {
       try {
         car.getSteeringServo().steerServo('l', time);
         log.info("Steering Servo to left for " + time/1000 + " seconds");
@@ -56,12 +57,12 @@ public class CarLib {
         log.error("Error trying to steer left", e);
       }
     } else {
-      log.warn("The Arduino is not being blocked, cannot continue steering right");
+      log.warn("The Arduino is not disabled, cannot continue steering right");
     }
   }
 
   public void steerRight (int time) {
-    if (car.getArduino().isBlocked()) {
+    if (!car.getArduino().isEnabled()) {
       try {
         car.getSteeringServo().steerServo('r', time);
         log.info("Steering Servo to right for " + time/1000 + " seconds");
@@ -69,12 +70,12 @@ public class CarLib {
         log.error("Error trying to steer right", e);
       }
     } else {
-      log.warn("The Arduino is not being blocked, cannot continue steering right");
+      log.warn("The Arduino is not disabled, cannot continue steering right");
     }
   }
 
   public void driveForward (int time) {
-    if (car.getArduino().isBlocked()) {
+    if (!car.getArduino().isEnabled()) {
       try {
         car.getElectronicSpeedController().controlEsc('f', time);
         log.info("Driving forwards for " + time/1000 + " seconds");
@@ -82,12 +83,12 @@ public class CarLib {
         log.error("Error trying to drive forward", e);
       }
     } else {
-      log.warn("The Arduino is not being blocked, cannot continue driving forward");
+      log.warn("The Arduino is not disabled, cannot continue driving forward");
     }
   }
 
   public void driveBackward (int time) {
-    if (car.getArduino().isBlocked()) {
+    if (!car.getArduino().isEnabled()) {
       try {
         car.getElectronicSpeedController().controlEsc('b', time);
         log.info("Driving backwards for " + time/1000 + " seconds");
@@ -95,41 +96,45 @@ public class CarLib {
         log.error("Error trying to drive backwards", e);
       }
     } else {
-      log.warn("The Arduino is not being blocked, cannot continue driving backwards");
+      log.warn("The Arduino is not disabled, cannot continue driving backwards");
     }
   }
 
-  public void blockArduino () {
-    log.info("blockArduino method called");
+  public void deactivateArduino () {
+    log.info("deactivateArduino method called");
 
-    car.getArduino().setControlOutput(true);
+    car.getArduino().setControlOutput(false);
     log.info("Blocked Arduino");
     car.getElectronicSpeedController().enableEsc();
     log.info("Enabled ESC");
     car.getSteeringServo().enableServo();
     log.info("Enabled Servo");
-
-    car.getArduino().setBlocked(true);
   }
 
-  public void releaseArduino () {
-    log.info("releaseArduino method called");
+  public void activateArduino () {
+    log.info("activateArduino method called");
 
-    car.getArduino().setControlOutput(false);
+    car.getArduino().setControlOutput(true);
     log.info("Released Arduino");
     car.getSteeringServo().deactivateServo();
     log.info("Deactivated Servo");
     car.getElectronicSpeedController().deactivateEsc();
     log.info("Deactivated ESC");
 
-    car.getArduino().setBlocked(false);
   }
 
   public void stopCar () {
+    log.info("stopCar method called");
+
     try {
-      blockArduino();
-      car.getElectronicSpeedController().stop();
-      releaseArduino();
+      if (car.getArduino().isEnabled()){
+        deactivateArduino();
+        car.getElectronicSpeedController().stop();
+        activateArduino();
+      } else {
+        car.getElectronicSpeedController().stop();
+      }
+
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
